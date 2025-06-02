@@ -5,6 +5,7 @@ import {CustomerService} from '../services/customer.service';
 import {catchError, Observable, throwError} from 'rxjs';
 import {Customer} from '../model/customer.model';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -22,7 +23,7 @@ export class CustomersComponent implements OnInit{
   customers! : Observable<Array<Customer>>;
   errorMessage : String | undefined; //so this var will have a value or nothing or we can add to the var !
   searchFormGroup! : FormGroup;
-  constructor(private customerService:CustomerService, private fb : FormBuilder) {
+  constructor(private customerService:CustomerService, private fb : FormBuilder,private router : Router) {
   }
 
   ngOnInit() { //this method executes in the debut
@@ -60,4 +61,10 @@ export class CustomersComponent implements OnInit{
 
      )
   }
+
+  handleCustomerAccounts(customer: Customer) {
+    this.router.navigateByUrl("customer-accounts/"+customer.id,{state :customer});
+  }
+
+
 }

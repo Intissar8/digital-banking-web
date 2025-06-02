@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Customer} from '../model/customer.model';
+import {BankAccountDTO} from '../model/bank-account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class CustomerService {
 
   public deleteCustomers(id : number) {
     return this.http.delete<Customer>(this.backendHost+"/customers/"+id)
+  }
+
+  public getCustomerAccounts(customerId: string): Observable<BankAccountDTO[]> {
+    return this.http.get<BankAccountDTO[]>(`http://localhost:8085/customers/${customerId}/accounts`);
   }
 
 
